@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
 import { useForm, Controller } from "react-hook-form";
-
+import { DevTool } from "react-hook-form-devtools";
 
 import {
   Button,
@@ -27,8 +27,6 @@ import {
   CardContent,
 } from "@material-ui/core";
 
-
-
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(0),
@@ -50,24 +48,24 @@ const useStyles = makeStyles((theme) => ({
 function CreateStudent(props) {
   const classes = useStyles();
 
-
   const { register, handleSubmit, control, errors } = useForm();
-  
+
   const options = [
     { value: "chocolate", label: "Chocolate" },
     { value: "strawberry", label: "Strawberry" },
     { value: "vanilla", label: "Vanilla" },
   ];
 
+  function onSubmit(data) {
+    console.log(data)
+  }
+
   return (
     <Container component="main" maxWidth="lg">
+      <DevTool control={control} />
       <CssBaseline />
       <div className={classes.paper}>
-        <form
-          onSubmit={handleSubmit}
-          className={classes.form}
-          noValidate
-        >
+        <form onSubmit={handleSubmit(onSubmit)} className={classes.form} noValidate>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Typography variant="button" display="block">
@@ -75,39 +73,42 @@ function CreateStudent(props) {
               </Typography>
             </Grid>
             <Grid item xs={12} sm={6}>
-            <Controller
-                as={TextField}
+              <TextField
                 name="studentFirstName"
                 control={control}
-                rules={{ required: true, minLength: {value: 8, message: "Too Short"} }}
+                inputRef={register({ required: true })}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
                 label="First Name"
                 fullWidth
                 error={errors.studentFirstName && true}
-                helperText={errors.studentFirstName && errors.studentFirstName.message}
+                helperText={
+                  errors.studentFirstName && errors.studentFirstName.message
+                }
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-            <Controller
-                as={TextField}
+              <TextField
                 name="studentLastName"
                 control={control}
-                rules={{ required: true, minLength: {value: 8, message: "Too Short"} }}
+                inputRef={register({
+                  required: true,
+                  minLength: { value: 8, message: "Too Short" },
+                })}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
                 label="Last Name"
                 fullWidth
-                autoFocus
                 error={errors.studentLastName && true}
-                helperText={errors.studentLastName && errors.studentLastName.message}
+                helperText={
+                  errors.studentLastName && errors.studentLastName.message
+                }
               />
             </Grid>
             <Grid item xs={12} sm={6}>
-              <Controller
-                as={TextField}
+              <TextField
                 name="studentAddress"
                 control={control}
                 size="small"
@@ -115,10 +116,11 @@ function CreateStudent(props) {
                 variant="outlined"
                 label="Student Address"
                 fullWidth
+                inputRef={register({ required: true })}
               />
-            </Grid>
+            </Grid> 
             <Grid item xs={12} sm={2}>
-               <Controller
+              <Controller
                 as={TextField}
                 name="studentBirthDay"
                 control={control}
@@ -129,8 +131,9 @@ function CreateStudent(props) {
                 fullWidth
               />
             </Grid>
+            {/* 
             <Grid item xs={12} sm={2}>
-                <Controller
+              <Controller
                 as={<Select options={options} />}
                 control={control}
                 rules={{ required: true }}
@@ -140,15 +143,14 @@ function CreateStudent(props) {
                 }}
                 name="gender"
                 defaultValue={{ value: "chocolate" }}
-                variant="outlined" 
-                size="small" 
-                required 
+                variant="outlined"
+                size="small"
+                required
                 fullWidth
               />
-
             </Grid>
             <Grid item xs={12} sm={2}>
-            <Controller
+              <Controller
                 as={<Select options={options} />}
                 control={control}
                 rules={{ required: true }}
@@ -158,17 +160,19 @@ function CreateStudent(props) {
                 }}
                 name="studentLanguage"
                 defaultValue={{ value: "chocolate" }}
-                variant="outlined" 
-                size="small" 
-                required 
+                variant="outlined"
+                size="small"
+                required
                 fullWidth
               />
             </Grid>
+            */}
             <Grid item xs={12}>
               <Typography variant="button" display="block">
                 Planned Attendance
               </Typography>
             </Grid>
+            
             <Grid item xs={12}>
               <TableContainer>
                 <Table size="small">
@@ -180,31 +184,31 @@ function CreateStudent(props) {
                       <TableCell
                         className={classes.tableHeadBackground}
                         align="center"
-                        >
+                      >
                         Monday
                       </TableCell>
                       <TableCell
                         className={classes.tableHeadBackground}
                         align="center"
-                        >
+                      >
                         Tuesday
                       </TableCell>
                       <TableCell
                         className={classes.tableHeadBackground}
                         align="center"
-                        >
+                      >
                         Wednesday
                       </TableCell>
                       <TableCell
                         className={classes.tableHeadBackground}
                         align="center"
-                        >
+                      >
                         Thursday
                       </TableCell>
                       <TableCell
                         className={classes.tableHeadBackground}
                         align="center"
-                        >
+                      >
                         Friday
                       </TableCell>
                     </TableRow>
@@ -215,50 +219,54 @@ function CreateStudent(props) {
                         className={classes.tableHeadBackground}
                         align="left"
                         variant="head"
-                        >
+                      >
                         Morning
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
-                          onChange={handleChange}
+                          inputRef={register}
                           name="mondayMorning"
                           size="small"
                           color="primary"
+                          defaultValue={false}
                         />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
-                          onChange={handleChange}
+                          inputRef={register}
                           name="tuesdayMorning"
                           size="small"
                           color="primary"
-                          />
+                          defaultValue={false}
+                        />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
-                          onChange={handleChange}
+                          inputRef={register}
                           name="wednesdayMorning"
                           size="small"
                           color="primary"
-                          />
+                          defaultValue={false}
+                        />
                       </TableCell>
                       <TableCell align="center">
-                        {" "}
                         <Checkbox
-                          onChange={handleChange}
+                          inputRef={register}
                           name="thursdayMorning"
                           size="small"
                           color="primary"
-                          />
+                          defaultValue={false}
+                        />
                       </TableCell>
                       <TableCell align="center">
                         {" "}
                         <Checkbox
-                          onChange={handleChange}
+                          inputRef={register}
                           name="fridayMorning"
                           size="small"
                           color="primary"
-                          />
+                          defaultValue={false}
+                        />
                       </TableCell>
                     </TableRow>
                     <TableRow>
@@ -266,56 +274,60 @@ function CreateStudent(props) {
                         className={classes.tableHeadBackground}
                         align="left"
                         variant="head"
-                        >
+                      >
                         Afternoon
                       </TableCell>
                       <TableCell align="center">
-                        {" "}
                         <Checkbox
-                          onChange={handleChange}
+                          inputRef={register}
                           name="mondayAfternoon"
                           size="small"
                           color="primary"
-                          />
+                          defaultValue={false}
+                        />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
-                          onChange={handleChange}
-                          name="tuesdayAfternoon"
+                          inputRef={register}
+                          name="tuesdayfternoon"
                           size="small"
                           color="primary"
-                          />
+                          defaultValue={false}
+                        />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
-                          onChange={handleChange}
+                          inputRef={register}
                           name="wednesdayAfternoon"
                           size="small"
                           color="primary"
-                          />
+                          defaultValue={false}
+                        />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
-                          onChange={handleChange}
+                          inputRef={register}
                           name="thursdayAfternoon"
                           size="small"
                           color="primary"
-                          />
+                          defaultValue={false}
+                        />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
-                          onChange={handleChange}
-                          name="fidayAfternoon"
+                          inputRef={register}
+                          name="fridayAfternoon"
                           size="small"
                           color="primary"
-                          />
+                          defaultValue={false}
+                        />
                       </TableCell>
                     </TableRow>
                   </TableBody>
                 </Table>
               </TableContainer>
             </Grid>
-                          {/* 
+            {/* 
             <Grid item xs={12}>
               <Typography variant="button" display="block">
                 Parents's info
