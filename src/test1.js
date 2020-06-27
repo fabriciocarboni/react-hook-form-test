@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 
-import { useForm, Controller, control } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import { DevTool } from "react-hook-form-devtools";
 
 import {
@@ -48,7 +48,13 @@ const useStyles = makeStyles((theme) => ({
 function CreateStudent(props) {
   const classes = useStyles();
 
-  const { register, handleSubmit, watch, control, errors } = useForm();
+  const { register, handleSubmit, control, errors } = useForm();
+
+  const options = [
+    { value: "chocolate", label: "Chocolate" },
+    { value: "strawberry", label: "Strawberry" },
+    { value: "vanilla", label: "Vanilla" },
+  ];
 
   function onSubmit(data) {
     console.log(data);
@@ -80,15 +86,17 @@ function CreateStudent(props) {
                 variant="outlined"
                 label="First Name"
                 fullWidth
-                error={errors.studentFirstName && true}
+                // error={errors.studentFirstName && true}
+                // helperText={
+                //   errors.studentFirstName && errors.studentFirstName.message
+                // }
               />
             </Grid>
             <Grid item xs={12} sm={6}>
               <TextField
                 name="studentLastName"
                 control={control}
-                // inputRef={register}
-                inputRef={register({ required: true })}
+                inputRef={register}
                 // inputRef={register({
                 //   required: true,
                 //   minLength: { value: 8, message: "Too Short" },
@@ -98,7 +106,10 @@ function CreateStudent(props) {
                 variant="outlined"
                 label="Last Name"
                 fullWidth
-                error={errors.studentLastName && true}
+                // error={errors.studentLastName && true}
+                // helperText={
+                //   errors.studentLastName && errors.studentLastName.message
+                // }
               />
             </Grid>
             <Grid item xs={12} sm={6}>
@@ -110,8 +121,8 @@ function CreateStudent(props) {
                 variant="outlined"
                 label="Student Address"
                 fullWidth
-                inputRef={register({ required: true })}
-                error={errors.studentAddress && true}
+                // inputRef={register({ required: true })}
+                inputRef={register}
               />
             </Grid>
             <Grid item xs={12} sm={2}>
@@ -123,53 +134,52 @@ function CreateStudent(props) {
                 variant="outlined"
                 label="Birthday"
                 fullWidth
-                inputRef={register({ required: true })}
-                error={errors.studentAddress && true}
+                // inputRef={register({ required: true })}
+                inputRef={register}
+              />
+            </Grid>
+            {/* 
+            <Grid item xs={12} sm={2}>
+              <Controller
+                as={<Select options={options} />}
+                control={control}
+                rules={{ required: true }}
+                onChange={([selected]) => {
+                  // Place your logic here
+                  return selected;
+                }}
+                name="gender"
+                defaultValue={{ value: "chocolate" }}
+                variant="outlined"
+                size="small"
+                required
+                fullWidth
               />
             </Grid>
             <Grid item xs={12} sm={2}>
-              <FormControl variant="outlined" size="small" fullWidth>
-                <InputLabel>Gender</InputLabel>
-                <Controller
-                  control={control}
-                  name="studentGender"
-                  defaultValue=""
-                  rules={{ required: true }}
-                  error={errors.studentGender && true}
-                  as={
-                    <Select label="Gender *" defaultValue="">
-                      <MenuItem value="M">M</MenuItem>
-                      <MenuItem value="F">F</MenuItem>
-                    </Select>
-                  }
-                />
-              </FormControl>
+              <Controller
+                as={<Select options={options} />}
+                control={control}
+                rules={{ required: true }}
+                onChange={([selected]) => {
+                  // Place your logic here
+                  return selected;
+                }}
+                name="studentLanguage"
+                defaultValue={{ value: "chocolate" }}
+                variant="outlined"
+                size="small"
+                required
+                fullWidth
+              />
             </Grid>
-            <Grid item xs={12} sm={2}>
-              <FormControl variant="outlined" size="small" fullWidth>
-                <InputLabel>Language</InputLabel>
-                <Controller
-                  control={control}
-                  name="studentLanguage"
-                  defaultValue=""
-                  rules={{ required: true }}
-                  error={errors.studentLanguage && true}
-                  as={
-                    <Select label="Language *">
-                      <MenuItem value="french">French</MenuItem>
-                      <MenuItem value="english">English</MenuItem>
-                    </Select>
-                  }
-                />
-              </FormControl>
-            </Grid>
-            <Grid item xs={12}>
+            */}
+            {/*  <Grid item xs={12}>
               <Typography variant="button" display="block">
                 Planned Attendance
               </Typography>
             </Grid>
 
-            {/* Planned Attendance */}
             <Grid item xs={12}>
               <TableContainer>
                 <Table size="small">
@@ -221,42 +231,48 @@ function CreateStudent(props) {
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
+                          inputRef={register}
                           name="mondayMorning"
                           size="small"
                           color="primary"
-                          inputRef={register}
+                          defaultValue={false}
                         />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
+                          inputRef={register}
                           name="tuesdayMorning"
                           size="small"
                           color="primary"
-                          inputRef={register}
+                          defaultValue={false}
                         />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
+                          inputRef={register}
                           name="wednesdayMorning"
                           size="small"
                           color="primary"
-                          inputRef={register}
+                          defaultValue={false}
                         />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
+                          inputRef={register}
                           name="thursdayMorning"
                           size="small"
                           color="primary"
-                          inputRef={register}
+                          defaultValue={false}
                         />
                       </TableCell>
                       <TableCell align="center">
+                        {" "}
                         <Checkbox
+                          inputRef={register}
                           name="fridayMorning"
                           size="small"
                           color="primary"
-                          inputRef={register}
+                          defaultValue={false}
                         />
                       </TableCell>
                     </TableRow>
@@ -270,42 +286,47 @@ function CreateStudent(props) {
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
+                          inputRef={register}
                           name="mondayAfternoon"
                           size="small"
                           color="primary"
-                          inputRef={register}
+                          defaultValue={false}
                         />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
-                          name="tuesdayAfternoon"
+                          inputRef={register}
+                          name="tuesdayfternoon"
                           size="small"
                           color="primary"
-                          inputRef={register}
+                          defaultValue={false}
                         />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
+                          inputRef={register}
                           name="wednesdayAfternoon"
                           size="small"
                           color="primary"
-                          inputRef={register}
+                          defaultValue={false}
                         />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
+                          inputRef={register}
                           name="thursdayAfternoon"
                           size="small"
                           color="primary"
-                          inputRef={register}
+                          defaultValue={false}
                         />
                       </TableCell>
                       <TableCell align="center">
                         <Checkbox
+                          inputRef={register}
                           name="fridayAfternoon"
                           size="small"
                           color="primary"
-                          inputRef={register}
+                          defaultValue={false}
                         />
                       </TableCell>
                     </TableRow>
@@ -314,7 +335,6 @@ function CreateStudent(props) {
               </TableContainer>
             </Grid>
 
-            {/* Parent's Info */}
             <Grid item xs={12}>
               <Typography variant="button" display="block">
                 Parents's info
@@ -323,103 +343,104 @@ function CreateStudent(props) {
                 Mother / Tutor
               </Typography>
             </Grid>
+
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
+                size="small"
+                autoComplete="off"
                 name="MotherTutorName"
-                control={control}
-                size="small"
-                autoComplete="off"
                 variant="outlined"
-                label="Mother/Tutor"
+                required
                 fullWidth
-                inputRef={register({ required: true })}
-                error={errors.MotherTutorName && true}
+                label="Mother/Tutor"
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
-                name="MotherTutorEmail"
-                control={control}
+                onChange={handleChange}
                 size="small"
-                autoComplete="off"
                 variant="outlined"
-                label="Mother / Tutor E-mail"
+                required
                 fullWidth
-                inputRef={register({ required: true })}
-                error={errors.MotherTutorEmail && true}
+                label="Mother / Tutor E-mail"
+                name="MotherTutorEmail"
+                autoComplete="off"
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
-              <FormControl variant="outlined" size="small" fullWidth>
-                <InputLabel>Same address child?</InputLabel>
-                <Controller
-                  control={control}
+              <FormControl variant="outlined" size="small" required fullWidth>
+                <InputLabel>Same address student?</InputLabel>
+                <Select
+                  onChange={handleChange}
                   name="MotherSameAddressStudentSelect"
-                  defaultValue=""
-                  // rules={{ required: true }}
-                  error={errors.MotherSameAddressStudentSelect && true}
-                  as={
-                    <Select label="Same child address *" defaultValue="">
-                      <MenuItem value="yes">Yes</MenuItem>
-                      <MenuItem value="no">No</MenuItem>
-                    </Select>
-                  }
-                />
+                  value={formState.MotherSameAddressStudentSelect}
+                  label="Same address student? *"
+                >
+                  <MenuItem value={"yes"}>Yes</MenuItem>
+                  <MenuItem value={"no"}>No</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="MotherSameAddressStudentDetail"
-                control={control}
+                value={formState.MotherSameAddressStudentDetail}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
-                label="Mother / Tutor Address"
+                required
                 fullWidth
-                inputRef={register}
-                error={errors.MotherSameAddressStudentDetail && true}
-                // disabled={watch("MotherSameAddressStudentSelect", "yes")}
+                label="Mother / Tutor Address"
+                disabled={
+                  formState.MotherSameAddressStudentSelect === "no"
+                    ? false
+                    : true
+                }
               />
             </Grid>
-
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="MotherHomePhoneNumber"
+                value={formState.MotherHomePhoneNumber}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Home phone number"
-                inputRef={register({ required: true })}
-                error={errors.MotherHomePhoneNumber && true}
               />
             </Grid>
 
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="MotherCellPhoneNumber"
+                value={formState.MotherCellPhoneNumber}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Cell phone number"
-                inputRef={register}
-                // error={errors.MotherHomePhoneNumber && true}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="MotherOfficePhoneNumber"
+                value={formState.MotherOfficePhoneNumber}
                 size="small"
                 autoComplete="hphone"
                 variant="outlined"
                 required
                 fullWidth
                 label="Office phone number"
-                inputRef={register}
-                // error={errors.MotherOfficePhoneNumber && true}
               />
             </Grid>
+
             <Grid item xs={12}>
               <Typography variant="caption" display="block">
                 Father / Tutor
@@ -427,95 +448,99 @@ function CreateStudent(props) {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="FatherTutorName"
+                value={formState.FatherTutorName}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Father/Tutor"
-                inputRef={register({ required: true })}
-                error={errors.FatherTutorName && true}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="FatherTutorEmail"
+                value={formState.FatherTutorEmail}
                 size="small"
                 variant="outlined"
+                required
                 fullWidth
                 label="Father / Tutor E-mail"
                 autoComplete="off"
-                inputRef={register({ required: true })}
-                error={errors.MotherTutorName && true}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
-              <FormControl variant="outlined" size="small" fullWidth>
-                <InputLabel>Same address child?</InputLabel>
-                <Controller
-                  control={control}
+              <FormControl variant="outlined" size="small" required fullWidth>
+                <InputLabel>Same address student?</InputLabel>
+                <Select
+                  onChange={handleChange}
                   name="FatherSameAddressStudentSelect"
-                  defaultValue=""
-                  // rules={{ required: true }}
-                  error={errors.FatherSameAddressStudentSelect && true}
-                  as={
-                    <Select label="Same child address *" defaultValue="">
-                      <MenuItem value="yes">Yes</MenuItem>
-                      <MenuItem value="no">No</MenuItem>
-                    </Select>
-                  }
-                />
+                  value={formState.FatherSameAddressStudentSelect}
+                  label="Same address student? *"
+                >
+                  <MenuItem value={"yes"}>Yes</MenuItem>
+                  <MenuItem value={"no"}>No</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="FatherSameAddressStudentDetail"
-                control={control}
+                value={formState.FatherSameAddressStudentDetail}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
-                label="Father / Tutor Address"
+                required
                 fullWidth
-                inputRef={register}
-                error={errors.FatherSameAddressStudentDetail && true}
-                // disabled={watch("FatherSameAddressStudentSelect", "yes")}
+                label="Father / Tutor Address"
+                disabled={
+                  formState.FatherSameAddressStudentSelect === "no"
+                    ? false
+                    : true
+                }
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="FatherHomePhoneNumber"
+                value={formState.FatherHomePhoneNumber}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
                 required
                 fullWidth
                 label="Home phone number"
-                inputRef={register({ required: true })}
-                error={errors.FatherHomePhoneNumber && true}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="FatherCellPhoneNumber"
+                value={formState.FatherCellPhoneNumber}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Cell phone number"
-                inputRef={register}
-                // error={errors.FatherSameAddressStudentDetail && true}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="FatherOfficePhoneNumber"
+                value={formState.FatherOfficePhoneNumber}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Office phone number"
-                inputRef={register}
-                // error={errors.FatherSameAddressStudentDetail && true}
               />
             </Grid>
             <Grid item xs={12}>
@@ -525,46 +550,54 @@ function CreateStudent(props) {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="RespPickupChildName"
+                value={formState.RespPickupChildName}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Name"
-                inputRef={register}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="RespLinkWithChild"
+                value={formState.RespLinkWithChild}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Link with child"
-                inputRef={register}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="RespPickupChildPhoneNumber"
+                value={formState.RespPickupChildPhoneNumber}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Phone number"
-                inputRef={register}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="RespPickupAddress"
+                value={formState.RespPickupAddress}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Address"
-                inputRef={register}
               />
             </Grid>
             <Grid item xs={12}>
@@ -574,47 +607,54 @@ function CreateStudent(props) {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="UrgencyContactName"
+                value={formState.UrgencyContactName}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Name"
-                inputRef={register}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="UrgencyLinkWithChild"
+                value={formState.UrgencyLinkWithChild}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
                 required
                 fullWidth
                 label="Link with child"
-                inputRef={register}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="UrgencyContactPhoneNumber"
+                value={formState.UrgencyContactPhoneNumber}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Phone number"
-                inputRef={register}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="UrgencyContactAddress"
+                value={formState.UrgencyContactAddress}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Address"
-                inputRef={register}
               />
             </Grid>
             <Grid item xs={12}>
@@ -624,24 +664,28 @@ function CreateStudent(props) {
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="ChildSin"
+                value={formState.ChildSin}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="SIN"
-                inputRef={register}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="ChildSinExpirationDate"
+                value={formState.ChildSinExpirationDate}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Exp Date"
-                inputRef={register}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}></Grid>
@@ -651,35 +695,33 @@ function CreateStudent(props) {
               </Typography>
             </Grid>
             <Grid item xs={6} sm={6} md={4}>
-              <FormControl variant="outlined" size="small" fullWidth>
+              <FormControl variant="outlined" size="small" required fullWidth>
                 <InputLabel>Special care?</InputLabel>
-                <Controller
-                  control={control}
+                <Select
+                  onChange={handleChange}
                   name="ChildSpecialCareSelect"
-                  defaultValue=""
-                  // rules={{ required: true }}
-                  error={errors.ChildSpecialCareSelect && true}
-                  as={
-                    <Select label="Special Care *" defaultValue="">
-                      <MenuItem value="yes">Yes</MenuItem>
-                      <MenuItem value="no">No</MenuItem>
-                    </Select>
-                  }
-                />
+                  value={formState.ChildSpecialCareSelect}
+                  label="Special Care *"
+                >
+                  <MenuItem value={"yes"}>Yes</MenuItem>
+                  <MenuItem value={"no"}>No</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="ChildSpecialCareDetail"
+                value={formState.ChildSpecialCareDetail}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Special care detail"
-                inputRef={register}
-                // disabled={
-                //   formState.ChildSpecialCareSelect === "yes" ? false : true
-                // }
+                disabled={
+                  formState.ChildSpecialCareSelect === "yes" ? false : true
+                }
               />
             </Grid>
             <Grid item xs={6} sm={12} md={4}>
@@ -688,74 +730,71 @@ function CreateStudent(props) {
               </Typography>
             </Grid>
             <Grid item xs={6} sm={6} md={4}>
-              <FormControl variant="outlined" size="small" fullWidth>
+              <FormControl variant="outlined" size="small" required fullWidth>
                 <InputLabel>Medication</InputLabel>
-                <Controller
-                  control={control}
+                <Select
+                  onChange={handleChange}
                   name="ChildMedicationSelect"
-                  defaultValue=""
-                  // rules={{ required: true }}
-                  error={errors.ChildMedicationSelect && true}
-                  as={
-                    <Select label="Medication" defaultValue="">
-                      <MenuItem value="yes">Yes</MenuItem>
-                      <MenuItem value="no">No</MenuItem>
-                    </Select>
-                  }
-                />
+                  value={formState.ChildMedicationSelect}
+                  label="Medication *"
+                >
+                  <MenuItem value={"yes"}>Yes</MenuItem>
+                  <MenuItem value={"no"}>No</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="ChildMedicationDetail"
+                value={formState.ChildMedicationDetail}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Medication"
-                inputRef={register}
-                // disabled={
-                //   formState.ChildMedicationSelect === "yes" ? false : true
-                // }
+                disabled={
+                  formState.ChildMedicationSelect === "yes" ? false : true
+                }
               />
             </Grid>
+
             <Grid item xs={6} sm={12} md={4}>
               <Typography variant="body2">
                 Is there any possible side effects for these medication?
               </Typography>
             </Grid>
             <Grid item xs={6} sm={6} md={4}>
-              <FormControl variant="outlined" size="small" fullWidth>
+              <FormControl variant="outlined" size="small" required fullWidth>
                 <InputLabel>Side effects</InputLabel>
-                <Controller
-                  control={control}
+                <Select
+                  onChange={handleChange}
                   name="ChildMedicationSideEffectsSelect"
-                  defaultValue=""
-                  // rules={{ required: true }}
-                  // error={errors.ChildMedicationSideEffectsSelect && true}
-                  as={
-                    <Select label="Side effects" defaultValue="">
-                      <MenuItem value="yes">Yes</MenuItem>
-                      <MenuItem value="no">No</MenuItem>
-                    </Select>
-                  }
-                />
+                  value={formState.ChildMedicationSideEffectsSelect}
+                  label="Side effects"
+                >
+                  <MenuItem value={"yes"}>Yes</MenuItem>
+                  <MenuItem value={"no"}>No</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="ChildMedicationSideEffectsDetail"
+                value={formState.ChildMedicationSideEffectsDetail}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Side effects"
-                inputRef={register}
-                // disabled={
-                //   formState.ChildMedicationSideEffectsSelect === "yes"
-                //     ? false
-                //     : true
-                // }
+                disabled={
+                  formState.ChildMedicationSideEffectsSelect === "yes"
+                    ? false
+                    : true
+                }
               />
             </Grid>
             <Grid item xs={6} sm={6} md={4}>
@@ -764,21 +803,17 @@ function CreateStudent(props) {
               </Typography>
             </Grid>
             <Grid item xs={6} sm={6} md={4}>
-              <FormControl variant="outlined" size="small" fullWidth>
+              <FormControl variant="outlined" size="small" required fullWidth>
                 <InputLabel>Vaccines</InputLabel>
-                <Controller
-                  control={control}
+                <Select
+                  onChange={handleChange}
                   name="ChildVaccines"
-                  defaultValue=""
-                  // rules={{ required: true }}
-                  // error={errors.ChildMedicationSideEffectsSelect && true}
-                  as={
-                    <Select label="Vaccines" defaultValue="">
-                      <MenuItem value="yes">Yes</MenuItem>
-                      <MenuItem value="no">No</MenuItem>
-                    </Select>
-                  }
-                />
+                  value={formState.ChildVaccines}
+                  label="Vaccines"
+                >
+                  <MenuItem value={"yes"}>Yes</MenuItem>
+                  <MenuItem value={"no"}>No</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={12} md={4}></Grid>
@@ -788,24 +823,17 @@ function CreateStudent(props) {
               </Typography>
             </Grid>
             <Grid item xs={6} sm={6} md={4}>
-              <FormControl variant="outlined" size="small" fullWidth>
+              <FormControl variant="outlined" size="small" required fullWidth>
                 <InputLabel>Is the vaccination up to date?</InputLabel>
-                <Controller
-                  control={control}
+                <Select
+                  onChange={handleChange}
                   name="ChildVaccinesUpToDateSelect"
-                  defaultValue=""
-                  // rules={{ required: true }}
-                  // error={errors.ChildMedicationSideEffectsSelect && true}
-                  as={
-                    <Select
-                      label="Is the vaccination up to date?"
-                      defaultValue=""
-                    >
-                      <MenuItem value="yes">Yes</MenuItem>
-                      <MenuItem value="no">No</MenuItem>
-                    </Select>
-                  }
-                />
+                  value={formState.ChildVaccinesUpToDateSelect}
+                  label="Is the vaccination up to date?"
+                >
+                  <MenuItem value={"yes"}>Yes</MenuItem>
+                  <MenuItem value={"no"}>No</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={12} md={4}></Grid>
@@ -815,41 +843,38 @@ function CreateStudent(props) {
               </Typography>
             </Grid>
             <Grid item xs={6} sm={6} md={4}>
-              <FormControl variant="outlined" size="small" fullWidth>
+              <FormControl variant="outlined" size="small" required fullWidth>
                 <InputLabel>Allergies</InputLabel>
-                <Controller
-                  control={control}
+                <Select
+                  onChange={handleChange}
                   name="ChildAllergiesSelect"
-                  defaultValue=""
-                  // rules={{ required: true }}
-                  // error={errors.ChildMedicationSideEffectsSelect && true}
-                  as={
-                    <Select label="Allergies *" defaultValue="">
-                      <MenuItem value="yes">Yes</MenuItem>
-                      <MenuItem value="no">No</MenuItem>
-                    </Select>
-                  }
-                />
+                  value={formState.ChildAllergiesSelect}
+                  label="Allergies *"
+                >
+                  <MenuItem value={"yes"}>Yes</MenuItem>
+                  <MenuItem value={"no"}>No</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
+                onChange={handleChange}
                 name="ChildAllgergiesDetail"
+                value={formState.ChildAllgergiesDetail}
                 size="small"
                 autoComplete="allergies"
                 variant="outlined"
                 required
                 fullWidth
                 label="If yes, which?"
-                inputRef={register}
-                // helperText={
-                //   formState.ChildAllergiesSelect === "yes"
-                //     ? "A medical document is necessary for each allergy mentioned."
-                //     : ""
-                // }
-                // disabled={
-                //   formState.ChildAllergiesSelect === "yes" ? false : true
-                // }
+                helperText={
+                  formState.ChildAllergiesSelect === "yes"
+                    ? "A medical document is necessary for each allergy mentioned."
+                    : ""
+                }
+                disabled={
+                  formState.ChildAllergiesSelect === "yes" ? false : true
+                }
               />
             </Grid>
             <Grid item xs={6} sm={6} md={4}>
@@ -860,197 +885,198 @@ function CreateStudent(props) {
               </Typography>
             </Grid>
             <Grid item xs={6} sm={6} md={4}>
-              <FormControl variant="outlined" size="small" fullWidth>
+              <FormControl variant="outlined" size="small" required fullWidth>
                 <InputLabel>Health prov.</InputLabel>
-                <Controller
-                  control={control}
+                <Select
+                  onChange={handleChange}
                   name="ChildHealthCareProvisionSelect"
-                  defaultValue=""
-                  // rules={{ required: true }}
-                  // error={errors.ChildMedicationSideEffectsSelect && true}
-                  as={
-                    <Select label="Health prov. *" defaultValue="">
-                      <MenuItem value="yes">Yes</MenuItem>
-                      <MenuItem value="no">No</MenuItem>
-                    </Select>
-                  }
-                />
+                  value={formState.ChildHealthCareProvisionSelect}
+                  label="Health prov. *"
+                >
+                  <MenuItem value={""}>None</MenuItem>
+                  <MenuItem value={"yes"}>Yes</MenuItem>
+                  <MenuItem value={"no"}>No</MenuItem>
+                </Select>
               </FormControl>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
+                onChange={handleChange}
                 name="ChildHealthCareProvisionsDetail"
+                value={formState.ChildHealthCareProvisionsDetail}
                 label="If yes, what?"
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
-                inputRef={register}
-                // disabled={
-                //   formState.ChildHealthCareProvisionSelect === "yes"
-                //     ? false
-                //     : true
-                // }
+                disabled={
+                  formState.ChildHealthCareProvisionSelect === "yes"
+                    ? false
+                    : true
+                }
               />
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+
+            <Grid item xs={6} sm={6} md={4}>
               <Typography variant="body2">
                 Name of Pediatrician And / or family doctor:
               </Typography>
             </Grid>
-            <Grid item xs={12} sm={6} md={4}>
+            <Grid item xs={6} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="ChildFamilyDoctorName"
+                value={formState.ChildFamilyDoctorName}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Name"
-                inputRef={register({ required: true })}
-                error={errors.ChildFamilyDoctorName && true}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="ChildFamilyDoctorAddress"
+                value={formState.ChildFamilyDoctorAddress}
                 size="small"
                 autoComplete="off"
                 variant="outlined"
+                required
                 fullWidth
                 label="Address"
-                inputRef={register({ required: true })}
-                error={errors.ChildFamilyDoctorAddress && true}
               />
             </Grid>
             <Grid item xs={12} sm={6} md={4}>
               <TextField
+                onChange={handleChange}
                 name="ChildFamilyDoctorPhone"
+                value={formState.ChildFamilyDoctorPhone}
                 autoComplete="off"
                 size="small"
                 variant="outlined"
+                required
                 fullWidth
                 label="Phone"
-                inputRef={register({ required: true })}
-                error={errors.ChildFamilyDoctorPhone && true}
               />
             </Grid>
-            <Grid item xs={12} sm={10}>
-              <Card className={classes.root} variant="outlined">
-                <CardContent>
-                  <Typography variant="button" display="block">
-                    Authorizations
-                  </Typography>
 
-                  <Grid container spacing={0}>
-                    <Grid item xs={12} sm={12}>
-                      <Typography variant="body2" display="block">
+            <Grid
+              container
+              spacing={0}
+              direction="column"
+              alignItems="center"
+              justify="center"
+              style={{ minHeight: "60vh" }}
+            >
+              <Grid item xs={12} sm={10}>
+                <Card className={classes.root} variant="outlined">
+                  <CardContent>
+                    <Typography variant="button" display="block">
+                      Authorizations
+                    </Typography>
+
+                    <Grid container spacing={0}>
+                      <Grid item xs={12} sm={12}>
+                        <Typography variant="body2" display="block">
+                          <br />
+                          J’autorise mon enfant à participer aux activités
+                          extérieures organisées par le service de garde de
+                          l’École Montessori de Beauport (sorties éducatives ou
+                          sportives).
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} sm={12} md={6}>
                         <br />
-                        J’autorise mon enfant à participer aux activités
-                        extérieures organisées par le service de garde de
-                        l’École Montessori de Beauport (sorties éducatives ou
-                        sportives).
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={12} md={6}>
-                      <br />
-                      Parent's Authorization:
-                      <Checkbox
-                        name="ParentExtraActivitiesAuthorization"
-                        size="small"
-                        color="primary"
-                        inputRef={register({ required: true })}
-                      />
-                    </Grid>
-                    <Grid item xs={3} sm={3}>
-                      <TextField
-                        name="ParentExtraActivitiesAuthorizationDate"
-                        label="Authorization Date"
-                        type="date"
-                        className={classes.textField}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                        inputRef={register}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={12}>
-                      <Typography variant="body2" display="block">
-                        <br />
-                        J’autorise l’équipe de l’École Montessori de Beauport à
-                        prendre les mesures nécessaires en cas d’urgence pour la
-                        santé et la sécurité de mon enfant.
-                        <br />
-                        <br />Y a-t-il des dispositions particulières à prendre
-                        en cas d’urgence (ambulance, hôpital, premiers soins)?
-                        Si oui, lesquelles?
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={8}>
-                      <br />
-                      <TextField
-                        name="UrgencyMeasuresDetail"
-                        autoComplete="off"
-                        label="+ Info"
-                        multiline
-                        rows={4}
-                        variant="outlined"
-                        fullWidth
-                        inputRef={register}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <br />
-                      {/* <FormControlLabel
-                          control={
-                            <Checkbox
-                              color="primary"
-                              size="small"
-                              name="ParentAdmissionAuthorization"
-                            />
-                          }
-                          label="Parent's Admission Authorization:"
-                          labelPlacement="start"
-                          inputRef={register}
-                        /> */}
-                      {/* <FormControlLabel
-                        control={
-                          <Controller
-                            as={Checkbox}
-                            control={control}
-                            name="ParentAdmissionAuthorization"
-                            color="primary"
-                            size="small"
-                            defaultValue={false}
+                        <Typography variant="body2" display="block">
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                onChange={handleChange}
+                                name="ParentExtraActivitiesAuthorization"
+                                color="primary"
+                              />
+                            }
+                            label="Parent's Authorization:"
+                            labelPlacement="start"
                           />
-                        }
-                        label="Parent's authorization"
-                        labelPlacement="start"
-                      /> */}
-                      Parent's Authorization:
-                      <Checkbox
-                        name="ParentAdmissionAuthorization"
-                        size="small"
-                        color="primary"
-                        inputRef={register({ required: true })}
-                      />
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={3} sm={3}>
+                        <TextField
+                          onChange={handleChange}
+                          name="ParentExtraActivitiesAuthorizationDate"
+                          label="Authorization Date"
+                          type="date"
+                          className={classes.textField}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={12}>
+                        <Typography variant="body2" display="block">
+                          <br />
+                          J’autorise l’équipe de l’École Montessori de Beauport
+                          à prendre les mesures nécessaires en cas d’urgence
+                          pour la santé et la sécurité de mon enfant.
+                          <br />
+                          <br />Y a-t-il des dispositions particulières à
+                          prendre en cas d’urgence (ambulance, hôpital, premiers
+                          soins)? Si oui, lesquelles?
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} sm={8}>
+                        <br />
+                        <TextField
+                          onChange={handleChange}
+                          name="UrgencyMeasuresDetail"
+                          value={formState.UrgencyMeasuresDetail}
+                          autoComplete="off"
+                          label="+ Info"
+                          multiline
+                          rows={4}
+                          variant="outlined"
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <br />
+                        <Typography variant="body2" display="block">
+                          <FormControlLabel
+                            control={
+                              <Checkbox
+                                onChange={handleChange}
+                                color="primary"
+                                name="ParentAdmissionAuthorization"
+                              />
+                            }
+                            label="Parent's Admission Authorization:"
+                            labelPlacement="start"
+                          />
+                        </Typography>
+                      </Grid>
+                      <Grid item xs={12} sm={3} />
+                      <Grid item xs={12} sm={3}>
+                        <TextField
+                          onChange={handleChange}
+                          name="studentAdmissionDate"
+                          label="Admission Date"
+                          type="date"
+                          className={classes.textField}
+                          InputLabelProps={{
+                            shrink: true,
+                          }}
+                        />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={3} />
-                    <Grid item xs={12} sm={3}>
-                      <TextField
-                        name="studentAdmissionDate"
-                        label="Admission Date"
-                        type="date"
-                        className={classes.textField}
-                        InputLabelProps={{
-                          shrink: true,
-                        }}
-                      />
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-          </Grid>{" "}
+                  </CardContent>
+                </Card>
+              </Grid> 
+            </Grid>*/}
+          </Grid>
           {/*--end grid Container */}
           <Grid item xs={2}>
             <br />
